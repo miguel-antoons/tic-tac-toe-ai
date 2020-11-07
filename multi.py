@@ -6,32 +6,21 @@ def multi_play():
     Runs the multiplayer mode
     :return: None
     """
-    unfinished = (True, "")                                         # loop statement (bool: shows if the game is done or not, string: shows the winning sign)
-    name_player1 = input("Enter the name of the first player : ")   # name of the first player
-    name_player2 = input("Enter the name of the second player : ")  # name of the second player
+    game = common.game()                                      # loop statement (bool: shows if the game is done or not, string: shows the winning sign)
+    multi_player_1 = common.player(input("Enter the name of the first player : "), "O")   # name of the first player
+    multi_player_2 = common.player(input("Enter the name of the second player : "), "X")  # name of the second player
 
-    print(f"{name_player1} will represent the 'O' plays and {name_player2} will represent the 'X' plays.\n")
+    print(f"{multi_player_1.user_name} will represent the {multi_player_1.sign} plays and {multi_player_2.user_name} will represent the {multi_player_2.sign} plays.\n")
 
-    if input("Press any key to continue..."):
-        pass
+    input("Press any key to continue...")
 
     print("Let's begin !")
-    common.show_play_board(common.game_board)
+    game.print_board()
 
     # As long as the game is unfinished, the loop will continue
-    while unfinished[0]:
-        common.player_plays(name_player1, "O")
-        unfinished = common.game_not_finished(common.game_board, "O")
+    while not game.end:
+        for i in [multi_player_1, multi_player_2]:
+            while not game.end and game.make_move(input(f"Your turn {i.user_name} !\nEnter a number : "), i):
+                pass
 
-        if unfinished[0]:
-            common.player_plays(name_player2, "X")
-            unfinished = common.game_not_finished(common.game_board, "X")
-
-    if unfinished[1] == "O":
-        print(f"Congratulations, {name_player1} won !")
-
-    elif unfinished[1] == "X":
-        print(f"Congratulations {name_player2}, you won !")
-
-    else:
-        print("It's a tie...")
+    common.announce_winner(multi_player_1, multi_player_1)

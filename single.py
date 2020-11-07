@@ -1,4 +1,6 @@
 import common
+# import AI
+from time import sleep
 
 
 def single_play():
@@ -6,71 +8,62 @@ def single_play():
     Runs the single play mode
     :return: None
     """
-    incorrect_sign = True                       # loop statement
-    unfinished = (True, False)                  # loop statement
-    computer_sign = ""                          # sign the computer will use
-    player_sign = ""                            # sign the player will use
-    name_player = input("Enter your name : ")   # name of the human player
+    incorrect_sign = True                                   # loop statement
+    game = common.game()                                    # The game status (class game)
+    human = common.player(input("Enter your name : "))      # Instance of player class, which represents the human player
+    computer = common.player("computer")                    # Instance of player class, which represents the computer
+    passing_order = []                                      # Passing order of the 2 players
 
     # As long as there is no valid entry, the loop keeps asking which sign the player wants
     while incorrect_sign:
         incorrect_sign = False
-        player_sign = input("Enter the sign you want to play (O begins first) : ")
+        human.sign = input("Enter the sign you want to play (O begins first) : ")
 
-        if player_sign == "O":
-            computer_sign = "X"
+        if human.sign == "O":
+            computer.sign = "X"
+            passing_order = [human, computer]
 
-        elif player_sign == "X":
-            computer_sign = "O"
+        elif human.sign == "X":
+            computer.sign = "O"
+            passing_order = [computer, human]
 
         else:
             incorrect_sign = True
 
-    print(f"{name_player}, you will represent the {player_sign} plays and the computer will represent the {computer_sign} plays.\n")
+    print(f"{human.user_name}, you will represent the {human.sign} plays and {computer.user_name} will represent the {computer.sign} plays.\n")
 
-    if input("Press any key to continue..."):
-        pass
+    input("Press any key to continue...")
 
     print("Let's begin !")
-    common.show_play_board(common.game_board)
+    game.print_board()
 
     # As long as there is no winner, the game continues
-    while unfinished[0]:
-        if player_sign == "O":
-            common.player_plays(name_player, "O")
-            unfinished = common.game_not_finished(common.game_board, player_sign)
+    while not game.end:
+        for i in passing_order:
+            if i == human:
+                while not game.end and game.make_move(input(f"Your turn {i.user_name} !\nEnter a number : "), i):
+                    pass
+            else:
+                while not game.end and game.make_move(computer_plays(game), i):
+                    pass
 
-            if unfinished[0]:
-                computer_plays(computer_sign)
-                unfinished = common.game_not_finished(common.game_board, computer_sign)
-
-        else:
-            computer_plays(computer_sign)
-            unfinished = common.game_not_finished(common.game_board, computer_sign)
-
-            if unfinished[0]:
-                common.player_plays(name_player, "X")
-                unfinished = common.game_not_finished(common.game_board, player_sign)
-
-    if unfinished[1] == player_sign:
-        print(f"Congratulations, {name_player} won !")
-
-    elif unfinished[1] == computer_sign:
-        print(f"Looser, the computer won !")
-
-    else:
-        print("It's a tie...")
+    # Function will check who has win
+    common.announce_winner(computer, human)
 
 
-def computer_plays(sign):
+def computer_plays(game):
     """
-    This function will execute the choice of the computer
-    :param sign: the sign the computer is playing with
-    :return: None
+    Represents the computer
+
+    :param game: {class game} the current state of the game
+    :return: {int} the computer's move
     """
-    play = common.available_plays[common.random_number(end=len(common.available_plays))]    # variable contains the play the computer will execute
-    print("Computer's turn !")
-    print(f"The computer chose number {common.game_board[play]}")
-    common.game_board[play] = sign                                                          # execution of the play
-    common.available_plays.remove(play)                                                     # the play is removed from the available plays
-    common.show_play_board(common.game_board)
+    print("Computer's turn")
+    play = game.available_plays[common.random_number(end=len(game.available_plays))]
+    print(f"The computer chose number {play}")
+    sleep(5)
+    return play
+
+
+if __name__ == "__main__":
+    single_play()
