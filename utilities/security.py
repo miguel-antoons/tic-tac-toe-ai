@@ -1,14 +1,14 @@
 import cryptography.fernet as crypt
 
 
-def create_key():
+def create_key(path="program_files"):
     """
     Generates a key in order to encrypt files, this key will be stored in the key.key file
     :return:
     """
     print("Creating encryption key...")
     key = crypt.Fernet.generate_key()
-    with open("program_files\\key.key", "wb") as key_file:
+    with open(path + "/key.key", "wb") as key_file:
         key_file.write(key)
 
     print("Done")

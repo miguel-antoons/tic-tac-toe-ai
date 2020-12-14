@@ -2,12 +2,13 @@ import subprocess
 import sys
 import csv
 import getpass
+import argparse
 from utilities import security
 from configparser import ConfigParser
 from os import path, system, environ, execv, mkdir
 
 
-def installer():
+def installer(program_files_path):
     """
     Start point of the installer program
     :return: None
@@ -19,7 +20,7 @@ def installer():
 
     system_requirements()
     download_program_files()
-    security.create_key()
+    security.create_key(program_files_path)
     install_mysql()
     create_config_file()
     create_csv_login()
@@ -85,7 +86,6 @@ def download_program_files():
 
     if not path.exists(new_directory_path):
         mkdir(new_directory_path)
-
 
 
 def install_mysql():
@@ -445,6 +445,12 @@ def create_desktop_shortcut():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("extern_path", type=int, help="Extern path or not", default=0)
+
+    args = parser.parse_args()
+
     # check if the win32com.client exists
     try:
         from win32com.client import Dispatch
@@ -461,5 +467,11 @@ if __name__ == "__main__":
     # create_config_file()
     # create_csv_scores()
     # create_ai_database()
-    installer()
+    if args.extern_path:
+        path = "./tic-tac-toe-ai/program_files"
+    else:
+        path = "./program_files"
+
+    installer(path)
+
     system('pause')

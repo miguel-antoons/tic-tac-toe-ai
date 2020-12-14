@@ -16,4 +16,4 @@ if __name__ == "__main__":
     else:
         print("program files already exist")
 
-    system("./tic-tac-toe-ai/installation.py")
+    system("python ./tic-tac-toe-ai/installation.py 1")
