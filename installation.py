@@ -4,7 +4,7 @@ import csv
 import getpass
 from utilities import security
 from configparser import ConfigParser
-from os import path, system, environ, execv
+from os import path, system, environ, execv, mkdir
 
 
 def installer():
@@ -64,7 +64,7 @@ def download_program_files():
 
     system('pause')
 
-    if not path.exists("Python_project") and not path.exists("../Python_project"):
+    if not path.exists("tic-tac-toe-ai") and not path.exists("../tic-tac-toe-ai"):
         print("Downloading program files...")
         dl_program = subprocess.Popen("git clone https://github.com/Miguel-Antoons/tic-tac-toe-ai.git", shell=True)
         dl_program.wait()
@@ -121,20 +121,15 @@ def create_config_file():
     :return: None
     """
     # find the program directory
-    if path.exists("Python_project"):
-        new_directory_path = "Python_project\\program_files"
-        conf_file_path = "Python_project\\program_files\\config.ini"
+    if path.exists("tic-tac-toe-ai"):
+        conf_file_path = "tic-tac-toe-ai\\program_files\\config.ini"
 
-    elif path.exists("..\\Python_project"):
-        new_directory_path = "program_files"
+    elif path.exists("..\\tic-tac-toe-ai"):
         conf_file_path = "program_files\\config.ini"
 
     else:
         print("error: unable to create configuration file --> could not find program directory")
         return None
-
-    if not path.exists(new_directory_path):
-        mkdir(new_directory_path)
 
     # if the configuration file does not exist
     if not path.exists(conf_file_path):
@@ -169,10 +164,10 @@ def create_csv_login():
     :return: None
     """
     # find the program directory
-    if path.exists("Python_project"):
-        csv_file_path = "Python_project\\program_files\\login.csv"
+    if path.exists("tic-tac-toe-ai"):
+        csv_file_path = "tic-tac-toe-ai\\program_files\\login.csv"
 
-    elif path.exists("..\\Python_project"):
+    elif path.exists("..\\tic-tac-toe-ai"):
         csv_file_path = "program_files\\login.csv"
 
     else:
@@ -180,7 +175,7 @@ def create_csv_login():
         return None
 
     # check if the login.csv file already exists
-    if not path.exists("program_files/login.csv") and not path.exists("./Python_project/program_files/login.csv"):
+    if not path.exists(csv_file_path):
         print("Creating login.csv...")
 
         # initializing the keys of the csv file and writing them to the file
@@ -199,10 +194,10 @@ def create_csv_scores():
     :return: None
     """
     # find the program directory
-    if path.exists("Python_project"):
-        csv_file_path = "Python_project\\program_files\\scores.csv"
+    if path.exists("tic-tac-toe-ai"):
+        csv_file_path = "tic-tac-toe-ai\\program_files\\scores.csv"
 
-    elif path.exists("..\\Python_project"):
+    elif path.exists("..\\tic-tac-toe-ai"):
         csv_file_path = "program_files\\scores.csv"
 
     else:
@@ -210,7 +205,7 @@ def create_csv_scores():
         return None
 
     # if the scores.csv file does not exist, create it
-    if not path.exists("program_files/scores.csv") and not path.exists("./Python_project/program_files/scores.csv"):
+    if not path.exists(csv_file_path):
         print("Creating scores.csv...")
 
         # initializing the keys of the csv file and writing them to the file
@@ -413,12 +408,12 @@ def create_desktop_shortcut():
     shortcut_object = shell.CreateShortCut(desktop_path)
 
     # find the program directory and adapt the paths to create the shortcut
-    if path.exists("Python_project"):
-        target = path.join(path.dirname(path.realpath(__file__)), "Python_project\\main.py")
-        working_directory = path.join(path.dirname(path.realpath(__file__)), "Python_project")
-        icon = path.join(path.dirname(path.realpath(__file__)), "Python_project\\program_files\\shortcut_icon.ico")
+    if path.exists("tic-tac-toe-ai"):
+        target = path.join(path.dirname(path.realpath(__file__)), "tic-tac-toe-ai\\main.py")
+        working_directory = path.join(path.dirname(path.realpath(__file__)), "tic-tac-toe-ai")
+        icon = path.join(path.dirname(path.realpath(__file__)), "tic-tac-toe-ai\\program_files\\shortcut_icon.ico")
 
-    elif path.exists("../Python_project"):
+    elif path.exists("../tic-tac-toe-ai"):
         target = path.join(path.dirname(path.realpath(__file__)), "main.py")
         working_directory = path.dirname(path.realpath(__file__))
         icon = path.join(path.dirname(path.realpath(__file__)), "program_files\\shortcut_icon.ico")
