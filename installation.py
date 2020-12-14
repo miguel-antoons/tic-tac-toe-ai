@@ -66,7 +66,7 @@ def download_program_files():
 
     if not path.exists("Python_project") and not path.exists("../Python_project"):
         print("Downloading program files...")
-        dl_program = subprocess.Popen("git clone https://github.com/Miguel-Antoons/Python_project.git", shell=True)
+        dl_program = subprocess.Popen("git clone https://github.com/Miguel-Antoons/tic-tac-toe-ai.git", shell=True)
         dl_program.wait()
         print("\nDone")
 
