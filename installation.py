@@ -122,17 +122,22 @@ def create_config_file():
     """
     # find the program directory
     if path.exists("Python_project"):
+        new_directory_path = "Python_project\\program_files"
         conf_file_path = "Python_project\\program_files\\config.ini"
 
     elif path.exists("..\\Python_project"):
+        new_directory_path = "program_files"
         conf_file_path = "program_files\\config.ini"
 
     else:
         print("error: unable to create configuration file --> could not find program directory")
         return None
 
+    if not path.exists(new_directory_path):
+        mkdir(new_directory_path)
+
     # if the configuration file does not exist
-    if not path.exists("program_files/config.ini") and not path.exists("./Python_project/program_files/config.ini"):
+    if not path.exists(conf_file_path):
         print("Creating configuration file...")
         configuration_content = ConfigParser()
 
