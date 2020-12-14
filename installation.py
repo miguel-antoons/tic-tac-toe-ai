@@ -50,7 +50,7 @@ def system_requirements():
     print("\tmath")
     print("\tdatetime")
     print("\tos")
-    print("\tmysql.connector")
+    print("\tmysql.connector\n")
 
     input("press any key to continue . . .")
 
