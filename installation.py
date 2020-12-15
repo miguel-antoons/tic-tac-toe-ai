@@ -468,10 +468,10 @@ if __name__ == "__main__":
     # create_csv_scores()
     # create_ai_database()
     if args.extern_path:
-        path = "./tic-tac-toe-ai/program_files"
+        file_path = "./tic-tac-toe-ai/program_files"
     else:
-        path = "./program_files"
+        file_path = "./program_files"
 
-    installer(path)
+    installer(file_path)
 
     system('pause')
