@@ -423,11 +423,6 @@ def create_desktop_shortcut():
 
     # find the program directory and adapt the paths to create the shortcut
     if path.exists("tic-tac-toe-ai"):
-        target = path.join(path.dirname(path.realpath(__file__)), "tic-tac-toe-ai\\main.py")
-        working_directory = path.join(path.dirname(path.realpath(__file__)), "tic-tac-toe-ai")
-        icon = path.join(path.dirname(path.realpath(__file__)), "tic-tac-toe-ai\\program_files\\shortcut_icon.ico")
-
-    elif path.exists("../tic-tac-toe-ai"):
         target = path.join(path.dirname(path.realpath(__file__)), "main.py")
         working_directory = path.dirname(path.realpath(__file__))
         icon = path.join(path.dirname(path.realpath(__file__)), "program_files\\shortcut_icon.ico")
