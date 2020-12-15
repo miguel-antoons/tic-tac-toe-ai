@@ -75,13 +75,13 @@ def download_program_files():
         print("program files already exist")
 
     if path.exists("tic-tac-toe-ai"):
-        new_directory_path = "Python_project\\program_files"
+        new_directory_path = "tic-tac-toe-ai\\program_files"
 
     elif path.exists("..\\tic-tac-toe-ai"):
         new_directory_path = "program_files"
 
     else:
-        print("error: unable to create configuration file --> could not find program directory")
+        print("ERROR : unable to create configuration file --> could not find program directory")
         return None
 
     if not path.exists(new_directory_path):

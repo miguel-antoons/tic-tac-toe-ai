@@ -9,11 +9,11 @@ if __name__ == "__main__":
 
     if not path.exists("tic-tac-toe-ai") and not path.exists("../tic-tac-toe-ai"):
         print("Downloading program files...")
-        dl_program = subprocess.Popen("git clone https://github.com/Miguel-Antoons/Python_project.git", shell=True)
+        dl_program = subprocess.Popen("git clone https://github.com/Miguel-Antoons/tic-tac-toe-ai.git", shell=True)
         dl_program.wait()
         print("\nDone")
 
     else:
         print("program files already exist")
 
-    system("python ./tic-tac-toe-ai/installation.py 1")
+    system("python ./installation.py 1")
