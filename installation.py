@@ -469,6 +469,7 @@ if __name__ == "__main__":
     # create_ai_database()
     if args.extern_path:
         file_path = "./tic-tac-toe-ai/program_files"
+        security.program_files_path = "tic-tac-toe-ai/program_files/"
     else:
         file_path = "./program_files"
 
